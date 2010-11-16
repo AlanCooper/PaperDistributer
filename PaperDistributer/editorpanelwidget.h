@@ -15,6 +15,7 @@ private:
     QPushButton *addRowBtn;
     QPushButton *addMultiRowBtn;
     QPushButton *deleteRowBtn;
+    QPushButton *resetBtn;
     enum ColContent{name, number, is};
     const static int colCount = 3;
     const static int initRowCount = 1;
@@ -23,12 +24,13 @@ public:
     QVector<College> getColleges();
 signals:
 
-public slots:
+private slots:
     void addNewRow(int row);
     void addRowBtnClick();
     void deleteBtnClick();
     void autoSwitchEdit(QTableWidgetItem *item);
     void addMultiRowBtnClick();
+    void resetBtnClick();
 };
 
 #endif // EDITORPANELWIDGET_H

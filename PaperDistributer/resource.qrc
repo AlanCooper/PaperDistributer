@@ -1,0 +1,11 @@
+<RCC>
+    <qresource prefix="/">
+        <file>icons/export.png</file>
+        <file>icons/go.png</file>
+        <file>icons/exit.png</file>
+        <file>icons/add.png</file>
+        <file>icons/addmulti.png</file>
+        <file>icons/delete.png</file>
+        <file>icons/reset.png</file>
+    </qresource>
+</RCC>
