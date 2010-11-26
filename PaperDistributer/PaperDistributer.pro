@@ -19,4 +19,4 @@ RESOURCES += \
 
 RC_FILE = myapp.rc
 
- TRANSLATIONS = PaperDistributer_zh.ts
+TRANSLATIONS = PaperDistributer_zh.ts

@@ -17,7 +17,7 @@ MainWindow::MainWindow(QWidget *parent) :
     this->toolBar->addAction(exitAction);
 
     editorPanel = new EditorPanelWidget(this);
-    resultDisplayWidget = new ResultDisplayWidget();
+    resultDisplayWidget = new ResultDisplayWidget(this);
     QWidget *centralWidget = new QWidget(this);
     QHBoxLayout *centralLayout = new QHBoxLayout(this);
     centralLayout->addWidget(editorPanel);
@@ -47,7 +47,7 @@ void MainWindow::exportCsv()
     QFile file(fileName);
     if (file.open(QIODevice::WriteOnly))
     {
-        file.write(this->distributer.csvString().toUtf8());
+        file.write(this->distributer.csvString().toLocal8Bit());
         file.close();
     }
 }

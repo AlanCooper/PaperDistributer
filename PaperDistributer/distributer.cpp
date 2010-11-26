@@ -86,13 +86,13 @@ void Distributer::distribute()
     QVector<int> paperNumber(collegeNumber, 0);
     for (int i = 0; i < collegeNumber; i++)
     {
-        paperNumber[i] = colleges[i].getPaperNumber();
+        paperNumber[i] = colleges[i].getPaperNumber() * 3;
     }
 
     int paperSum = 0;
     for (int i = 0; i < collegeNumber; i++)
     {
-        paperSum += colleges[i].getPaperNumber();
+        paperSum += colleges[i].getPaperNumber() * 3;
     }
 
     QVector<int> available(collegeNumber, 0);
@@ -126,17 +126,12 @@ void Distributer::distribute()
     result = QVector< QVector<int> >(collegeNumber, QVector<int>(collegeNumber, 0));
     this->assigned = QVector<int>(collegeNumber, 0);
 
-
+    int collegeToDistribute = 0;
     while (paperSum > 0)
-    {
-        int collegeToDistribute = 0;
-        for (int i = 0; i < collegeNumber; i++)
+    {      
+        while(paperNumber[collegeToDistribute] == 0)
         {
-            if (paperNumber[i] > 0)
-            {
-                collegeToDistribute = i;
-                break;
-            }
+            collegeToDistribute = (collegeToDistribute + 1) % collegeNumber;
         }
 
         int maxIndex = 0;
@@ -172,6 +167,36 @@ void Distributer::distribute()
             if (i != collegeToDistribute)
             {
                 available[i]--;
+            }
+        }
+        if(paperNumber[collegeToDistribute] > 0)
+        {
+            int tmpIndex = 0;
+            maxP = -10;
+            for (int i = 0; i < collegeNumber; i++)
+            {
+                if (need[i] > -100 && i != collegeToDistribute
+                    && result[i][collegeToDistribute] <= limit[collegeToDistribute])
+                {
+
+                    if (maxP < need[i] / available[i])
+                    {
+                        maxP = need[i] / available[i];
+                        tmpIndex = i;
+                    }
+                    else if (maxP == need[i] / available[i])
+                    {
+                        if (result[i][collegeToDistribute] < result[tmpIndex][collegeToDistribute])
+                        {
+                            maxP = need[i] / available[i];
+                            tmpIndex = i;
+                        }
+                    }
+                }
+            }
+            if (tmpIndex == maxIndex)
+            {
+                collegeToDistribute = (collegeToDistribute + 1) % collegeNumber;
             }
         }
     }
